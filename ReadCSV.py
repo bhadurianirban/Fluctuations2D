@@ -11,11 +11,21 @@ class ReadCSV:
 
     def read_matrix_in_dataframe(self):
         self.csv_matrix_df = pd.read_csv(self.csv_file_path, header=None, names=['Row', 'Col', 'Val'],)
+        orig_size = self.csv_matrix_df.shape
         self.csv_matrix_df = self.csv_matrix_df.sort_values(['Row', 'Col']).drop_duplicates().reset_index(drop=True)
-        row_ind = self.csv_matrix_df['Row']
-        col_ind = self.csv_matrix_df['Col']
-        data = self.csv_matrix_df['Val']
-        mat_coo = sparse.coo_matrix((data, (row_ind, col_ind)))
+        uniq_size = self.csv_matrix_df.shape
+        diff = orig_size[0] - uniq_size[0]
+        print("Dropped duplicates : ", diff)
+        row_max = self.csv_matrix_df['Row'].max()
+        col_max = self.csv_matrix_df['Col'].max()
+        # print(self.csv_matrix_df.head())
+        # myval = [29451,695717]
+        # if (myval in self.csv_matrix_df['Row','Col']):
+        #     print('Gheu')
+        # for row_counter in range(row_max):
+        #     for col_counter in range(col_max):
 
-        print(mat_coo)
+
+
+
 
